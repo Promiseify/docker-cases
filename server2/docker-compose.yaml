@@ -1,0 +1,53 @@
+services:
+  web1:
+    build: ./web1
+    ports:
+      - "8081:80"
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.13
+
+  web2:
+    build: ./web2
+    ports:
+      - "8082:80"
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.14
+
+  lvs1:
+    build: ./lvs1
+    container_name: lvs-director-1
+    network_mode: "host" # 使用主机网络模式
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - /proc:/proc:rw
+    depends_on:
+      - web1
+      - web2
+
+  lvs2:
+    build: ./lvs2
+    container_name: lvs-director-2
+    network_mode: "host"
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - /proc:/proc:rw
+    depends_on:
+      - web1
+      - web2
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/16
