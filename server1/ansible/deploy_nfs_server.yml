@@ -1,0 +1,24 @@
+- hosts: zabbix
+  become: yes
+  tasks:
+    - name: 安装 nfs-utils
+      yum:
+        name: nfs-utils
+        state: present
+
+    - name: 创建共享目录
+      file:
+        path: /data/nfs
+        state: directory
+        mode: '0777'
+
+    - name: 配置 /etc/exports
+      copy:
+        dest: /etc/exports
+        content: "/data/nfs  10.10.0.0/8(rw,sync,no_root_squash)"
+
+    - name: 启动并开机自启
+      systemd:
+        name: nfs
+        state: started
+        enabled: yes

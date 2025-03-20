@@ -1,0 +1,20 @@
+# 所有服务器部署NTP
+- hosts: all_servers
+  become: yes
+  tasks:
+    - name: 安装 chrony
+      yum:
+        name: chrony
+        state: present
+
+    - name: 启动并设置开机自启
+      systemd:
+        name: chronyd
+        state: started
+        enabled: yes
+
+    - name: 配置时区
+      command: timedatectl set-timezone Asia/Shanghai
+
+    - name: 同步一次时间
+      command: chronyc -a makestep

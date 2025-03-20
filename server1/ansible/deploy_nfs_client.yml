@@ -1,0 +1,33 @@
+- hosts: mysql
+  become: yes
+  vars:
+    nfs_server_ip: "10.10.0.100"
+    nfs_remote_dir: "/data/nfs"
+    nfs_local_mount: "/mnt/nfs"
+
+  tasks:
+    - name: 安装 nfs-utils
+      yum:
+        name: nfs-utils
+        state: present
+
+    - name: 创建本地挂载目录
+      file:
+        path: "{{ nfs_local_mount }}"
+        state: directory
+        mode: '0777'
+
+    - name: 挂载 NFS 共享目录
+      mount:
+        path: "{{ nfs_local_mount }}"
+        src: "{{ nfs_server_ip }}:{{ nfs_remote_dir }}"
+        fstype: nfs
+        state: mounted
+
+    - name: 添加 /etc/fstab 自动挂载配置
+      mount:
+        path: "{{ nfs_local_mount }}"
+        src: "{{ nfs_server_ip }}:{{ nfs_remote_dir }}"
+        fstype: nfs
+        opts: defaults
+        state: present
