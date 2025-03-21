@@ -45,6 +45,34 @@ services:
       - web1
       - web2
 
+  mysql1:
+    build: ./mysql1
+    container_name: mysql1
+    network_mode: "host"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - mysql1_data:/var/lib/mysql
+      - mysql1_run:/var/run/mysqld
+    privileged: true
+
+  mysql2:
+    build: ./mysql2
+    container_name: mysql2
+    network_mode: "host"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - mysql2_data:/var/lib/mysql
+      - mysql2_run:/var/run/mysqld
+    privileged: true
+
+volumes:
+  mysql1_data:
+  mysql2_data:
+  mysql1_run:
+  mysql2_run:
+
 networks:
   app_net:
     driver: bridge

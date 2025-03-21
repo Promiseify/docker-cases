@@ -1,11 +1,271 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!doctype html>
+<html class="no-js" lang="">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>极麦医学公司网络1</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>极麦</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="img/favicon.ico">
+
+
+	<!-- All css plugins here -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/ionicons.min.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="css/meanmenu.css">
+	<link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<script src="js/hm.js"></script>
+	<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+	<script src="js/vendor/jquery-1.12.0.min.js"></script>
+	<script src="js/axios.min.js"></script>
+	<script src="js/request.js"></script>
+	<script src="js/index1.js"></script>
 </head>
-<body>
-  <h2>极麦医学公司网络1</h2>
+
+<body style="overflow-x: hidden;">
+	<header>
+		<div class="menu-area ">
+			<div class="container md-full xs-full">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="logo">
+							<span style="font-size: 30px; font-weight: bold; line-height: 80px;">极麦健康</span>
+							<!-- <a href="index.html"><img src="img/logo.png" alt="" /></a> -->
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="main-menu text-right hidden-xs hidden-sm">
+							<nav>
+								<ul class="basic-menu">
+									<li><a href="index.html">主页</a>
+									</li>
+									<li><a href="#">关于我们</a>
+										<ul>
+											<li><a href="#">企业简介</a></li>
+											<li><a href="#">管理团队</a></li>
+										</ul>
+									</li>
+									<li><a href="#.">社会责任</a>
+										<ul>
+											<li><a href="#">团队荣誉(以及相关新闻)</a></li>
+										</ul>
+									</li>
+									<li><a href="#.">联系我们</a>
+										<ul>
+											<li><a href="#">联系方式</a></li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+						</div>
+						<div class="basic-mobile-menu visible-xs visible-sm">
+							<nav id="mobile-nav">
+								<ul class="basic-menu">
+									<li><a href="index.html">主页</a>
+									</li>
+									<li><a href="#.">关于我们</a>
+										<ul>
+											<li><a href="#">企业简介</a></li>
+											<li><a href="#">管理团队</a></li>
+											<!-- <li><a href="#.">服务案例</a></li> -->
+										</ul>
+									</li>
+									<li><a href="#.">社会责任</a>
+										<ul>
+											<li><a href="#">团队荣誉(以及相关新闻)</a></li>
+										</ul>
+									</li>
+									<li><a href="#" target="_blank">康复平台</a>
+									<li><a href="#.">联系我们</a>
+										<ul>
+											<li><a href="#">联系方式</a></li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- header end -->
+
+	<!-- slider-area start -->
+	<div class="slider-area">
+		<div class="slider-active owl-carousel">
+			<div class="single-silder height-vh hero-slide " style="background-image: url('img/slider/1-1.png')">
+				<div class="container">
+					<div class="display-table">
+						<div class="table-cell">
+							<div class="slider-text text-animation">
+								<h2>认识康复</h2>
+								<h2>引领全球康复产业升级</h2>
+								<p>认识康复致力于解决患者的快速康复需求,运用医学人工智能技术海量分析康复知识<br />以实现患者精准康复;构建AI精准康复服务实现患者再不同的病程下精准、安全、有效康复</p>
+								<a class="btn" href="#">了解更多</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="single-silder height-vh hero-slide " style="background-image: url('img/slider/2-2.png')">
+				<div class="container">
+					<div class="display-table">
+						<div class="table-cell">
+							<div class="slider-text text-animation text-center">
+								<h2>我们为您提供医疗帮助</h2>
+								<p>使用先进的医疗技术、优质的医疗服务<br />为您排忧解难，帮助您身体快速康复，为您的健康保驾护航</p>
+								<a class="btn" href="#">了解更多</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- slider-area end -->
+
+	<!-- about-area start -->
+	<div class="about-area pt-90 pb-60">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 mb-30">
+					<div class="features-box border-box text-center">
+						<i class="fa" id="AISF" aria-hidden="true">
+							<img src="img/two/patient.png" alt="">
+						</i>
+						<h3>患者服务</h3>
+						<p>Behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+						<!-- <a class="btn" href="#">ENTER</a> -->
+					</div>
+				</div>
+				<div class="col-md-4 mb-30">
+					<div class="features-box border-box text-center">
+						<i class="fa" id="AISF" aria-hidden="true">
+							<img src="img/two/life.png" alt="">
+						</i>
+						<h3>临床服务</h3>
+						<p>Behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+						<!-- <a class="btn" href="#">ENTER</a> -->
+					</div>
+				</div>
+				<div class="col-md-4 mb-30">
+					<div class="features-box border-box text-center">
+						<i class="fa" id="AISF" aria-hidden="true">
+							<img src="img/two/society.png" alt="">
+						</i>
+						<h3>企业服务</h3>
+						<p>Behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+						<!-- <a class="btn" href="#">ENTER</a> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- link-shop start -->
+	<div class="linkShop">
+		<div class="container">
+			<div class="row">
+				<div class="bgImg"><img src="img/bg/bg-1.png" class="bgImg"></div>
+				<a href="#" target="_blank" class="link"></a>
+			</div>
+		</div>
+	</div>
+	<div class="linkXs">
+		<span class="title">认识康复平台</span>
+		<span class="more">了解更多</span>
+		<a href="#" target="_blank" class="link"></a>
+	</div>
+	<!-- link-shop end -->
+	<!-- enterprise-dynamics start -->
+	<div class="suggestions-area gray-bg pt-90 pb-60">
+		<div class="container">
+			<div class="row" id="row">
+				<div class="area-title2 col-lg-6 col-md-12 leftTitle">
+					<h2>企业动态</h2>
+					<p id="Enterprise_dis">Enterprise Dynamics</p>
+				</div>
+
+				<div class="col-md-6 col-xs-12 mb-30 leftNews">
+					<div class="col-md-12 mb-30 leftSide">
+						<div class="logoImg">
+							<img src="img/bg/news-1.png">
+						</div>
+					</div>
+					<div class="linkTitle mb-30">
+						<p>出院随访打电话的是个机器人?人工智能随访系统甚至能听懂方言</p>
+					</div>
+				</div>
+				<div class="area-title2 rightTitle">
+					<h2>企业发展历程</h2>
+					<p id="Enterprise_dis">Enterprise development history</p>
+				</div>
+				<div class="col-md-5 col-xs-12 mb-30 rightNews" id="development_container">
+					<div class="development">
+						<div class="development_card features-box">
+							<div class="date">
+								<div class="day">
+									01•01
+								</div>
+								<div class="y-m">
+									2021
+								</div>
+							</div>
+							<div class="info">
+								<div class="title">AI医疗本体疾病引擎上线
+								</div>
+								<p class="content">AI医疗本体疾病引擎上线AI医疗本体疾病引擎上线AI医疗本体疾病引擎上线AI医疗本体疾病引擎上线</p>
+							</div>
+						</div>
+						<div class="development_card features-box">
+							<div class="date">
+								<div class="day">
+									01•01
+								</div>
+								<div class="y-m">
+									2017
+								</div>
+							</div>
+							<div class="info">
+								<div class="title">全球首个医疗随访AI机器人诞生</div>
+								<p class="content">全球首个医疗随访AI机器人诞生全球首个医疗随访AI机器人诞生全球首个医疗随访AI机器人诞生全球首个医疗随访AI机器人诞生</p>
+							</div>
+						</div>
+						<div class="development_card features-box">
+							<div class="date">
+								<div class="day">
+									01•01
+								</div>
+								<div class="y-m">
+									2014
+								</div>
+							</div>
+							<div class="info">
+								<div class="title">公司成立</div>
+								<p class="content">公司成立公司成立公司成立公司成立公司成立公司成立公司成立公司成立公司成立公司成立公司成立公司成立</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- All js plugins here -->
+	<script src="js/vendor/jquery-1.12.0.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/jquery.meanmenu.js"></script>
+	<script src="js/isotope.pkgd.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
 </body>
+
 </html>
