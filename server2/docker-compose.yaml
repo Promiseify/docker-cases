@@ -17,7 +17,7 @@ services:
 
   lvs1:
     build: ./lvs1
-    container_name: lvs-director-1
+    container_name: lvs1
     network_mode: "host" # 使用主机网络模式
     privileged: true
     cap_add:
@@ -32,7 +32,7 @@ services:
 
   lvs2:
     build: ./lvs2
-    container_name: lvs-director-2
+    container_name: lvs2
     network_mode: "host"
     privileged: true
     cap_add:
@@ -45,33 +45,57 @@ services:
       - web1
       - web2
 
-  mysql1:
-    build: ./mysql1
-    container_name: mysql1
-    network_mode: "host"
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-    volumes:
-      - mysql1_data:/var/lib/mysql
-      - mysql1_run:/var/run/mysqld
-    privileged: true
+  # mysql1:
+  #   build: ./mysql1
+  #   container_name: mysql1
+  #   network_mode: "host"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: 123456
+  #   volumes:
+  #     - mysql1_data:/var/lib/mysql
+  #     - mysql1_run:/var/run/mysqld
+  #   privileged: true
 
-  mysql2:
-    build: ./mysql2
-    container_name: mysql2
-    network_mode: "host"
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-    volumes:
-      - mysql2_data:/var/lib/mysql
-      - mysql2_run:/var/run/mysqld
-    privileged: true
+  # mysql2:
+  #   build: ./mysql2
+  #   container_name: mysql2
+  #   network_mode: "host"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: 123456
+  #   volumes:
+  #     - mysql2_data:/var/lib/mysql
+  #     - mysql2_run:/var/run/mysqld
+  #   privileged: true
 
-volumes:
-  mysql1_data:
-  mysql2_data:
-  mysql1_run:
-  mysql2_run:
+  keepalived1:
+    build: ./keepalived1
+    container_name: keepalived1
+    network_mode: "host"  
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    depends_on:
+      # - mysql1
+      - lvs1
+
+  keepalived2:
+    build: ./keepalived2
+    container_name: keepalived2
+    network_mode: "host"
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    depends_on:
+      # - mysql2
+      - lvs2
+
+# volumes:
+#   mysql1_data:
+#   mysql2_data:
+#   mysql1_run:
+#   mysql2_run:
 
 networks:
   app_net:
