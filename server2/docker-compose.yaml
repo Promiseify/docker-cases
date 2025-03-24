@@ -45,27 +45,33 @@ services:
       - web1
       - web2
 
-  # mysql1:
-  #   build: ./mysql1
-  #   container_name: mysql1
-  #   network_mode: "host"
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: 123456
-  #   volumes:
-  #     - mysql1_data:/var/lib/mysql
-  #     - mysql1_run:/var/run/mysqld
-  #   privileged: true
+  mysql1:
+    build: ./mysql1
+    container_name: mysql1
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.21  # 使用固定IP
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - mysql1_data:/var/lib/mysql
+      - mysql1_run:/var/run/mysqld
+    privileged: true
+    restart: always
 
-  # mysql2:
-  #   build: ./mysql2
-  #   container_name: mysql2
-  #   network_mode: "host"
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: 123456
-  #   volumes:
-  #     - mysql2_data:/var/lib/mysql
-  #     - mysql2_run:/var/run/mysqld
-  #   privileged: true
+  mysql2:
+    build: ./mysql2
+    container_name: mysql2
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.22  # 使用固定IP
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - mysql2_data:/var/lib/mysql
+      - mysql2_run:/var/run/mysqld
+    privileged: true
+    restart: always
 
   keepalived1:
     build: ./keepalived1
@@ -76,7 +82,7 @@ services:
       - NET_ADMIN
       - SYS_MODULE
     depends_on:
-      # - mysql1
+      - mysql1
       - lvs1
 
   keepalived2:
@@ -88,14 +94,14 @@ services:
       - NET_ADMIN
       - SYS_MODULE
     depends_on:
-      # - mysql2
+      - mysql2
       - lvs2
 
-# volumes:
-#   mysql1_data:
-#   mysql2_data:
-#   mysql1_run:
-#   mysql2_run:
+volumes:
+  mysql1_data:
+  mysql2_data:
+  mysql1_run:
+  mysql2_run:
 
 networks:
   app_net:
