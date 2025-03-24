@@ -42,6 +42,17 @@ vrrp_instance VI_DB {
     virtual_ipaddress {
         10.0.0.20/8  # MySQL的VIP
     }
+    track_script {
+        chk_mysql
+    }
+    notify_master "/bin/sh -c 'ipvsadm -A -t 10.0.0.20:3306 -s rr && ipvsadm -a -t 10.0.0.20:3306 -r 172.16.0.21:3306 -m && ipvsadm -a -t 10.0.0.20:3306 -r 172.16.0.22:3306 -m'"
+}
+
+# 检查 MySQL 健康的脚本
+vrrp_script chk_mysql {
+    script "/etc/keepalived/check_mysql.sh"  # 监控脚本
+    interval 2
+    weight 2
 }
 EOF
 

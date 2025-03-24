@@ -45,38 +45,10 @@ services:
       - web1
       - web2
 
-  mysql1:
-    build: ./mysql1
-    container_name: mysql1
-    networks:
-      app_net:
-        ipv4_address: 172.16.0.21  # 使用固定IP
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-    volumes:
-      - mysql1_data:/var/lib/mysql
-      - mysql1_run:/var/run/mysqld
-    privileged: true
-    restart: always
-
-  mysql2:
-    build: ./mysql2
-    container_name: mysql2
-    networks:
-      app_net:
-        ipv4_address: 172.16.0.22  # 使用固定IP
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-    volumes:
-      - mysql2_data:/var/lib/mysql
-      - mysql2_run:/var/run/mysqld
-    privileged: true
-    restart: always
-
   keepalived1:
     build: ./keepalived1
     container_name: keepalived1
-    network_mode: "host"  
+    network_mode: "host"
     privileged: true
     cap_add:
       - NET_ADMIN
@@ -97,11 +69,35 @@ services:
       - mysql2
       - lvs2
 
-volumes:
-  mysql1_data:
-  mysql2_data:
-  mysql1_run:
-  mysql2_run:
+  mysql1:
+    image: mysql:5.7.23
+    container_name: mysql1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+    volumes:
+      - ./mysql1/my.cnf:/etc/mysql/my.cnf
+    ports:
+      - "3307:3306"
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.21
+    privileged: true
+
+  mysql2:
+    image: mysql:5.7.23
+    container_name: mysql2
+    restart: always
+    ports:
+      - "3308:3306"
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.22
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+    volumes:
+      - ./mysql2/my.cnf:/etc/mysql/my.cnf
+    privileged: true
 
 networks:
   app_net:

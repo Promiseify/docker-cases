@@ -7,6 +7,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY init-keepalived.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/init-keepalived.sh
+COPY check_mysql.sh /etc/keepalived/
+
+RUN chmod +x /usr/local/bin/init-keepalived.sh \
+    && chmod +x /etc/keepalived/check_mysql.sh
 
 CMD ["/usr/local/bin/init-keepalived.sh"]
