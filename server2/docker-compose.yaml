@@ -99,6 +99,38 @@ services:
       - ./mysql2/my.cnf:/etc/mysql/my.cnf
     privileged: true
 
+  dns1:
+    build: ./dns1
+    container_name: dns1
+    ports:
+      - "5353:53/udp"
+      - "5353:53/tcp"
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.8
+    volumes:
+      - ./dns1/config:/var/named
+    cap_add:
+      - NET_ADMIN
+    restart: always
+
+  dns2:
+    build: ./dns2
+    container_name: dns2
+    ports:
+      - "5354:53/udp"
+      - "5354:53/tcp"
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.9
+    volumes:
+      - ./dns2/config:/var/named
+    cap_add:
+      - NET_ADMIN
+    restart: always
+    depends_on:
+      - dns1
+
 networks:
   app_net:
     driver: bridge

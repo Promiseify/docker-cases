@@ -1,0 +1,22 @@
+$TTL 86400
+@   IN  SOA     ns1.zhida.com. admin.zhida.com. (
+        2023062001  ; Serial
+        3600        ; Refresh
+        1800        ; Retry
+        604800      ; Expire
+        86400       ; Minimum TTL
+)
+
+; Name servers
+@       IN  NS      ns1.zhida.com.
+@       IN  NS      ns2.zhida.com.
+
+; PTR Records
+8.0     IN  PTR     ns1.zhida.com.
+9.0     IN  PTR     ns2.zhida.com.
+13.0    IN  PTR     web1.zhida.com.
+14.0    IN  PTR     web2.zhida.com.
+21.0    IN  PTR     mysql1.zhida.com.
+22.0    IN  PTR     mysql2.zhida.com.
+11.0    IN  PTR     lvs1.zhida.com.
+12.0    IN  PTR     lvs2.zhida.com.

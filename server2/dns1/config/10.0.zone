@@ -1,0 +1,16 @@
+$TTL 86400
+@   IN  SOA     ns1.zhida.com. admin.zhida.com. (
+        2023062001  ; Serial
+        3600        ; Refresh
+        1800        ; Retry
+        604800      ; Expire
+        86400       ; Minimum TTL
+)
+
+; Name servers
+@       IN  NS      ns1.zhida.com.
+@       IN  NS      ns2.zhida.com.
+
+; 关键服务的反向解析
+10.0    IN  PTR     www.zhida.com.  ; Web服务的VIP
+20.0    IN  PTR     db.zhida.com.   ; 数据库服务的VIP
