@@ -131,6 +131,43 @@ services:
     depends_on:
       - dns1
 
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:alpine-5.0-latest
+    environment:
+      - DB_SERVER_HOST=mysql1 # 使用主库
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix_pwd
+      - ZBX_DEBUGLEVEL=3
+      - ZBX_STARTPOLLERS=5
+      - ZBX_IPMIPOLLERS=0
+      - ZBX_STARTPOLLERSUNREACHABLE=1
+      - ZBX_STARTTRAPPERS=5
+      - ZBX_STARTPINGERS=1
+      - ZBX_STARTDISCOVERERS=1
+      - ZBX_STARTHTTPPOLLERS=1
+    networks:
+      - app_net
+    depends_on:
+      - mysql1
+    restart: always
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-mysql:alpine-5.0-latest
+    environment:
+      - ZBX_SERVER_HOST=zabbix-server
+      - DB_SERVER_HOST=mysql1 # 使用主库
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix_pwd
+      - PHP_TZ=Asia/Shanghai
+    ports:
+      - "8080:8080"
+    networks:
+      - app_net
+    depends_on:
+      - zabbix-server
+    restart: always
 networks:
   app_net:
     driver: bridge
