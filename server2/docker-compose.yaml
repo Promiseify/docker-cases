@@ -168,6 +168,30 @@ services:
     depends_on:
       - zabbix-server
     restart: always
+
+  nfs-server:
+    image: erichough/nfs-server
+    privileged: true
+    environment:
+      - NFS_EXPORT_0=/nfsshare *(rw,no_root_squash,no_subtree_check)
+    volumes:
+      - ./nfs_data:/nfsshare
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.5
+
+  ntp-server:
+    image: cturra/ntp
+    container_name: ntp-server
+    restart: always
+    ports:
+      - "123:123/udp"
+    environment:
+      - NTP_SERVERS=pool.ntp.org
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.6
+
 networks:
   app_net:
     driver: bridge

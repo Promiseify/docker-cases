@@ -17,6 +17,23 @@ modprobe nf_conntrack
 # 配置网络参数
 echo 1 > /proc/sys/net/ipv4/ip_forward
 
+# 挂载NFS（如果环境变量存在）
+if [ ! -z "$NFS_SERVER" ]; then
+    echo "Mounting NFS share from $NFS_SERVER..."
+    mount -t nfs $NFS_SERVER:/nfsshare /nfs_mount
+fi
+
+# 配置NTP（如果环境变量存在）
+if [ ! -z "$NTP_SERVER" ]; then
+    echo "Synchronizing time with $NTP_SERVER..."
+    ntpdate $NTP_SERVER
+    # 每小时同步一次时间
+    while true; do
+        sleep 3600
+        ntpdate $NTP_SERVER
+    done &
+fi
+
 # 设置IPVS规则
 ipvsadm -C
 ipvsadm -A -t $VIP:80 -s rr

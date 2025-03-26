@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     net-tools \
     kmod \
     procps \
+    nfs-common \
+    ntpdate \
     && rm -rf /var/lib/apt/lists/*
 # 配置初始化脚本
 COPY lvs-init.sh /usr/local/bin/
