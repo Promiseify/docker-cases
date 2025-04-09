@@ -3,6 +3,7 @@ services:
     build: ./web1
     ports:
       - "8081:80"
+      - "10051:10050"
     networks:
       app_net:
         ipv4_address: 172.16.0.13
@@ -11,6 +12,7 @@ services:
     build: ./web2
     ports:
       - "8082:80"
+      - "10052:10050"
     networks:
       app_net:
         ipv4_address: 172.16.0.14
@@ -105,6 +107,7 @@ services:
     ports:
       - "5353:53/udp"
       - "5353:53/tcp"
+      - "10053:10050"
     networks:
       app_net:
         ipv4_address: 172.16.0.8
@@ -120,6 +123,7 @@ services:
     ports:
       - "5354:53/udp"
       - "5354:53/tcp"
+      - "10054:10050"
     networks:
       app_net:
         ipv4_address: 172.16.0.9
@@ -147,7 +151,8 @@ services:
       - ZBX_STARTDISCOVERERS=1
       - ZBX_STARTHTTPPOLLERS=1
     networks:
-      - app_net
+      app_net:
+        ipv4_address: 172.16.0.2 # 固定IP
     depends_on:
       - mysql1
     restart: always
