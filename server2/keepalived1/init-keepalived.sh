@@ -12,6 +12,19 @@ echo "Using interface: $INTERFACE"
 
 # 生成 keepalived 配置文件
 cat > /etc/keepalived/keepalived.conf << EOF
+global_defs {
+    script_security
+}
+
+# 检查 MySQL 健康的脚本
+vrrp_script chk_mysql {
+    script "/etc/keepalived/check_mysql.sh"
+    interval 2
+    weight -10       
+    fall 2          
+    rise 1 
+}
+
 vrrp_instance VI_WEB {
     state MASTER
     interface $INTERFACE
@@ -30,7 +43,7 @@ vrrp_instance VI_WEB {
 
 # MySQL 实例配置
 vrrp_instance VI_DB {
-    state BACKUP
+    state MASTER
     interface $INTERFACE
     virtual_router_id 21
     priority 100
@@ -40,19 +53,14 @@ vrrp_instance VI_DB {
         auth_pass 123456
     }
     virtual_ipaddress {
-        10.0.0.20/8  # MySQL的VIP
+        10.0.0.20/8
     }
     track_script {
         chk_mysql
     }
     notify_master "/bin/sh -c 'ipvsadm -A -t 10.0.0.20:3306 -s rr && ipvsadm -a -t 10.0.0.20:3306 -r 172.16.0.21:3306 -m && ipvsadm -a -t 10.0.0.20:3306 -r 172.16.0.22:3306 -m'"
-}
-
-# 检查 MySQL 健康的脚本
-vrrp_script chk_mysql {
-    script "/etc/keepalived/check_mysql.sh"  # 监控脚本
-    interval 2
-    weight 2
+    notify_backup "/bin/sh -c 'ipvsadm -D -t 10.0.0.20:3306'"
+    notify_fault "/bin/sh -c 'ipvsadm -D -t 10.0.0.20:3306'"
 }
 EOF
 
