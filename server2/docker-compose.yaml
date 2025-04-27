@@ -50,11 +50,12 @@ services:
   keepalived1:
     build: ./keepalived1
     container_name: keepalived1
-    network_mode: "host"
+    network_mode: "host" # web VIP需要host网络
     privileged: true
     cap_add:
       - NET_ADMIN
-      - SYS_MODULE
+      - NET_BROADCAST
+      - NET_RAW
     depends_on:
       - mysql1
       - lvs1
@@ -62,11 +63,12 @@ services:
   keepalived2:
     build: ./keepalived2
     container_name: keepalived2
-    network_mode: "host"
+    network_mode: "host" # web VIP需要host网络
     privileged: true
     cap_add:
       - NET_ADMIN
-      - SYS_MODULE
+      - NET_BROADCAST
+      - NET_RAW
     depends_on:
       - mysql2
       - lvs2
@@ -74,7 +76,7 @@ services:
   mysql1:
     image: mysql:5.7.23
     container_name: mysql1
-    restart: always
+    restart: "no"
     environment:
       MYSQL_ROOT_PASSWORD: root123
     volumes:
