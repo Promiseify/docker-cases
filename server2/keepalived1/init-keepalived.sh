@@ -25,6 +25,7 @@ vrrp_script chk_mysql {
     rise 1
 }
 
+
 vrrp_instance VI_WEB {
     state MASTER
     interface $INTERFACE
@@ -38,7 +39,13 @@ vrrp_instance VI_WEB {
     virtual_ipaddress {
         10.0.0.10/8
     }
-    notify_master "/bin/sh -c 'ipvsadm -C && ipvsadm -A -t 10.0.0.10:80 -s rr && ipvsadm -a -t 10.0.0.10:80 -r 172.16.0.13:80 -m && ipvsadm -a -t 10.0.0.10:80 -r 172.16.0.14:80 -m'"
+    # 修改notify_master脚本，确保在成为master时正确配置IPVS
+    notify_master "/bin/sh -c 'ipvsadm -C && \
+        ipvsadm -A -t 10.0.0.10:80 -s rr && \
+        ipvsadm -a -t 10.0.0.10:80 -r 172.16.0.13:80 -m && \
+        ipvsadm -a -t 10.0.0.10:80 -r 172.16.0.14:80 -m'"
+    notify_backup "/bin/sh -c 'ipvsadm -C'"
+    notify_fault "/bin/sh -c 'ipvsadm -C'"
 }
 
 # MySQL 实例配置

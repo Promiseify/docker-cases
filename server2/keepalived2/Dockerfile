@@ -1,11 +1,17 @@
 FROM debian:bullseye
 
+# 使用清华源
 RUN echo "deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main non-free contrib" > /etc/apt/sources.list
 
+# 更新并安装软件包
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    --allow-downgrades --allow-change-held-packages \
-    keepalived ipvsadm iproute2 mariadb-client && \
+    perl-base=5.32.1-4+deb11u4 \
+    perl=5.32.1-4+deb11u3 \
+    keepalived \
+    ipvsadm \
+    iproute2 \
+    mariadb-client && \
     rm -rf /var/lib/apt/lists/*
 
 COPY init-keepalived.sh /usr/local/bin/
